@@ -2,10 +2,8 @@ const form = document.getElementById("expense-form");
 const expenseList = document.getElementById("expense-list");
 const totalAmount = document.getElementById("total-amount");
 
-// Load expenses from localStorage
 let expenses = JSON.parse(localStorage.getItem("expenses")) || [];
 
-// Display expenses on page load
 renderExpenses();
 
 form.addEventListener("submit", (e) => {
@@ -43,9 +41,9 @@ function renderExpenses() {
     total += expense.amount;
     const li = document.createElement("li");
     li.innerHTML = `
-      <span>${expense.name} - ₹${expense.amount} 
-      <small>(${expense.category}, ${expense.date})</small></span>
-      <button class="delete-btn" onclick="deleteExpense(${expense.id})">X</button>
+      <span>${expense.name} - ₹<b>${expense.amount}<b>
+      <small>(  ${expense.category},  ${expense.date}  )</small></span>
+      <button class="delete-btn" onclick="deleteExpense( ${expense.id} )">X</button>
     `;
     expenseList.appendChild(li);
   });
