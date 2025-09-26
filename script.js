@@ -24,8 +24,13 @@ form.addEventListener("submit", (e) => {
 });
 
 function deleteExpense(id) {
-  expenses = expenses.filter(expense => expense.id !== id);
-  saveAndRender();
+  const expense = expenses.find(exp => exp.id === id);
+
+  if (confirm(`Are you sure you want to delete "${expense.name}" (₹${expense.amount})?`)) {
+    expenses = expenses.filter(expense => expense.id !== id);
+    saveAndRender();
+    alert("Expense removed successfully ✅");
+  }
 }
 
 function saveAndRender() {
@@ -41,9 +46,9 @@ function renderExpenses() {
     total += expense.amount;
     const li = document.createElement("li");
     li.innerHTML = `
-      <span>${expense.name} - ₹<b>${expense.amount}<b>
-      <small>(  ${expense.category},  ${expense.date}  )</small></span>
-      <button class="delete-btn" onclick="deleteExpense( ${expense.id} )">X</button>
+      <span>${expense.name} - ₹${expense.amount} 
+      <small>(${expense.category}, ${expense.date})</small></span>
+      <button class="delete-btn" onclick="deleteExpense(${expense.id})">X</button>
     `;
     expenseList.appendChild(li);
   });
